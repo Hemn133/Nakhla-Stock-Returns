@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Colours (light = default, .dark = lounge theme) ---------- */
+:root {
+    color-scheme: light;
+
+    --bg: #ecf0eb;
+    --surface: #ffffff;
+    --surface-2: #f3f6f2;
+    --ink: #11241d;
+    --muted: #55695f;
+    --line: #d7e1d9;
+
+    --brand: #17604b;
+    --brand-ink: #f2faf6;
+    --brand-soft: #dcede5;
+
+    --gold: #d9a441;
+    --gold-ink: #2a1d05;
+    --gold-text: #8a5d16;
+    --gold-soft: #f6eac9;
+
+    --danger: #b03a2a;
+    --danger-soft: #f8e1dc;
+
+    --side: #0c2d24;
+    --side-ink: #e3f0ea;
+    --side-muted: #8fb0a3;
+}
+
+.dark {
+    color-scheme: dark;
+
+    --bg: #0a1410;
+    --surface: #12201b;
+    --surface-2: #192a23;
+    --ink: #e6f0eb;
+    --muted: #8aa297;
+    --line: #243630;
+
+    --brand: #3da380;
+    --brand-ink: #04120c;
+    --brand-soft: #16342a;
+
+    --gold: #e2b04d;
+    --gold-ink: #241903;
+    --gold-text: #e2b04d;
+    --gold-soft: #2e2511;
+
+    --danger: #f0806c;
+    --danger-soft: #3a1d18;
+
+    --side: #07120e;
+    --side-ink: #e3f0ea;
+    --side-muted: #7f9c90;
+}
+
+@theme inline {
+    --font-sans: "Vazirmatn", "Noto Naskh Arabic", system-ui, sans-serif;
+    --font-display: "Noto Kufi Arabic", "Vazirmatn", system-ui, sans-serif;
+
+    --color-bg: var(--bg);
+    --color-surface: var(--surface);
+    --color-surface-2: var(--surface-2);
+    --color-ink: var(--ink);
+    --color-muted: var(--muted);
+    --color-line: var(--line);
+    --color-brand: var(--brand);
+    --color-brand-ink: var(--brand-ink);
+    --color-brand-soft: var(--brand-soft);
+    --color-gold: var(--gold);
+    --color-gold-ink: var(--gold-ink);
+    --color-gold-text: var(--gold-text);
+    --color-gold-soft: var(--gold-soft);
+    --color-danger: var(--danger);
+    --color-danger-soft: var(--danger-soft);
+    --color-side: var(--side);
+    --color-side-ink: var(--side-ink);
+    --color-side-muted: var(--side-muted);
+
+    --shadow-card: 0 1px 2px rgb(10 30 22 / 0.06), 0 14px 30px -18px rgb(10 30 22 / 0.35);
+
+    --animate-fade: fade-in 0.18s ease-out both;
+    --animate-drawer: drawer-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    --animate-toast: toast-in 0.25s ease-out both;
+    --animate-pop: pop 0.2s ease-out;
+    --animate-print: print-out 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* ---------- Base ---------- */
+html {
+    background: var(--bg);
+}
+
+body {
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
+::selection {
+    background: var(--gold);
+    color: var(--gold-ink);
+}
+
+input::placeholder {
+    color: var(--muted);
+    opacity: 0.7;
+}
+
+/* ---------- Details ---------- */
+
+/* Faint lattice pattern behind the dashboard hero */
+.lattice {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'><g fill='none' stroke='white' stroke-opacity='0.07' stroke-width='1'><path d='M28 3 53 28 28 53 3 28Z'/><circle cx='28' cy='28' r='10'/><path d='M0 0 56 56M56 0 0 56' stroke-opacity='0.035'/></g></svg>");
+    background-size: 56px 56px;
+}
+
+/* Torn bottom edge of the cart ticket (large screens) */
+@media (min-width: 1024px) {
+    .ticket-edge {
+        -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 14px 100%;
+        mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 14px 100%;
+    }
+}
+
+/* Torn top and bottom edges of a printed wasl */
+.receipt-paper {
+    -webkit-mask:
+        conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 14px 100%,
+        conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50% / 14px 100%;
+    -webkit-mask-composite: source-in;
+    mask:
+        conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 14px 100%,
+        conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50% / 14px 100%;
+    mask-composite: intersect;
+}
+
+/* ---------- Motion (only answers to an action) ---------- */
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes drawer-in {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes toast-in {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.18); }
+    100% { transform: scale(1); }
+}
+
+/* The saved wasl slides out like a printed slip */
+@keyframes print-out {
+    from { clip-path: inset(0 0 100% 0); transform: translateY(-18px); }
+    to { clip-path: inset(0 0 0 0); transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ---------- Printing a wasl: hide the app, print only the receipt ---------- */
+@media print {
+    #root {
+        display: none !important;
+    }
+
+    body {
+        background: #fff;
+    }
+
+    .receipt-paper {
+        -webkit-mask: none !important;
+        mask: none !important;
+        animation: none !important;
+        clip-path: none !important;
+    }
+}
+
+/* ---------- Customer statement (کشف حساب): printed on A4 ---------- */
+.statement-paper {
+    page: statement;
+}
+
+@page statement {
+    size: A4;
+    margin: 12mm;
+}
+
+@media print {
+    .statement-paper {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .statement-paper thead {
+        display: table-header-group;
+    }
+
+    .statement-paper tr {
+        break-inside: avoid;
+    }
+}
